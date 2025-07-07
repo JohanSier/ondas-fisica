@@ -4,10 +4,10 @@ import AnimatedRings from './components/AnimatedRings';
 function App() {
   return (
     <div className="absolute z-0">
-      <AnimatedRings />
-      <div className="absolute top-0 z-10 text-white flex items-center justify-center">
+      <div className="top-0 z-10 text-white flex items-center justify-center">
         {/* Aquí va el contenido de tu sitio */}
         <h1 className="text-4xl font-bold">Simuladores de Ondas</h1>
+        <AnimatedRings />
       </div>
     </div>
   );

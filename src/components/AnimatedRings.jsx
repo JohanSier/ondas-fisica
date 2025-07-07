@@ -36,7 +36,7 @@ const AnimatedRings = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen bg-black overflow-hidden flex items-center justify-center border border-[red]">
+    <div className="w-full h-screen bg-black overflow-hidden flex items-center justify-center">
       <svg
         ref={svgRef}
         id="mainSVG"

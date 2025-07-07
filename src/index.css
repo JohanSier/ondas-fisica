@@ -1,5 +1,6 @@
 /* Agregar Fuente Museo Moderno */
-@import 'tailwindcss';
+@import 'tailwindcss'; 
+
 
 @font-face {
   font-family: 'MuseoModerno';
@@ -83,6 +84,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 body,
 html {
