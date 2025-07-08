@@ -41,7 +41,7 @@ const AnimatedRings = () => {
         ref={svgRef}
         id="mainSVG"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1100 650"
+        viewBox="0 0 1100 620"
         preserveAspectRatio="xMidYMid meet"
         className="w-full h-full max-w-screen max-h-screen object-contain"
       >
