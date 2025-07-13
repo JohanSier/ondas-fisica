@@ -1,6 +1,9 @@
 import { useRef, useState, useEffect } from "react";
+import { IoArrowBackOutline } from "react-icons/io5";
 import { Chart } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
+import atom from "../images/atom.png"
+import soundwave from "../images/sound-wave.png"
 
 export default function SoundLab() {
   const [isListening, setIsListening] = useState(false);
@@ -28,6 +31,7 @@ export default function SoundLab() {
             backgroundColor: "rgba(75, 192, 192, 0.1)",
             borderWidth: 1,
             tension: 0.1,
+            pointRadius: 0,
             fill: true,
             data: Array(256).fill(128),
           },
@@ -37,8 +41,8 @@ export default function SoundLab() {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          y: { min: 0, max: 255, display: false },
-          x: { display: false },
+          y: { min: 0, max: 255, display: true },
+          x: { display: true },
         },
         plugins: {
           legend: {
@@ -75,13 +79,15 @@ export default function SoundLab() {
       });
       mediaStreamRef.current = stream;
 
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      audioContextRef.current = new (window.AudioContext ||
+        window.webkitAudioContext)();
       await audioContextRef.current.resume();
       analyserRef.current = audioContextRef.current.createAnalyser();
       analyserRef.current.fftSize = 2048;
       analyserRef.current.smoothingTimeConstant = 0.8;
 
-      microphoneRef.current = audioContextRef.current.createMediaStreamSource(stream);
+      microphoneRef.current =
+        audioContextRef.current.createMediaStreamSource(stream);
       microphoneRef.current.connect(analyserRef.current);
 
       isListeningRef.current = true;
@@ -89,7 +95,9 @@ export default function SoundLab() {
       animarOnda();
     } catch (err) {
       console.error("Error al acceder al micrófono:", err);
-      alert("No se pudo acceder al micrófono. Por favor verifica los permisos.");
+      alert(
+        "No se pudo acceder al micrófono. Por favor verifica los permisos."
+      );
     }
   };
 
@@ -150,26 +158,42 @@ export default function SoundLab() {
   };
 
   return (
-    <div className="pt-[8%] min-h-screen bg-gray-900 text-white p-8">
-      <h1 className="text-center text-4xl mb-8">Laboratorio Ondas Sonoras</h1>
+    <div className="pt-30 min-h-screen bg-gray-900 text-white p-8">
+      <h1 className="text-center text-4xl mb-8">Simulador Ondas Sonoras</h1>
 
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-center gap-5">
+        <div className="flex justify-center items-center gap-5">
           <button
             onClick={() => navigate("/")}
-            className="cursor-pointer flex-inline w-fit whitespace-nowrap bg-black hover:opacity-75 px-6 py-3 rounded-lg text-lg mb-8 text-center"
+            className="cursor-pointer items-center flex-inline w-fit whitespace-nowrap bg-black hover:opacity-75 px-4 py-3 rounded-lg text-lg mb-8 text-center"
           >
-            Regresar
+            <IoArrowBackOutline size={24} />
           </button>
 
           <button
             onClick={alternarMicrofono}
-            className={`cursor-pointer flex-inline w-fit whitespace-nowrap px-6 py-3 rounded-lg text-lg mb-8 text-center ${
-              isListening ? "bg-red-600 hover:bg-red-700" : "bg-blue-600 hover:bg-blue-700"
+            className={`cursor-pointer flex-inline w-fit items-center whitespace-nowrap px-6 py-3 rounded-lg text-lg mb-8 text-center ${
+              isListening
+                ? "bg-red-600 hover:bg-red-700"
+                : "bg-blue-600 hover:bg-blue-700"
             }`}
           >
             {isListening ? "Detener Micrófono" : "Activar Micrófono"}
           </button>
+
+          <div className="flex -mt-7 gap-4 items-center">
+            <button
+              className={`cursor-pointer w-14 px-2 py-2 bg-white rounded-full text-center hover:opacity-65`}
+            >
+              <img src={atom} className="m-auto" alt="physics icon"/>
+            </button>
+
+            <button
+              className={`cursor-pointer w-14 px-2 py-2 bg-white rounded-full text-center hover:opacity-65`}
+            >
+              <img src={soundwave} className="w-9 m-auto" alt="sound-wave icon"/>
+            </button>
+          </div>
         </div>
 
         <div className="mb-4">
@@ -177,10 +201,20 @@ export default function SoundLab() {
             <span>Nivel de Audio:</span>
             <span>{Math.round(audioLevel)}%</span>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2.5">
+          <div className="w-full bg-gray-700 rounded-full h-2.5 overflow-hidden">
             <div
-              className="bg-blue-500 h-2.5 rounded-full transition-all duration-150 ease-out"
-              style={{ width: `${audioLevel}%`, minWidth: "2px" }}
+              className="h-full transition-all duration-150 ease-out"
+              style={{
+                width: `${audioLevel}%`,
+                backgroundColor:
+                  audioLevel > 90
+                    ? "#DC2626" // rojo
+                    : audioLevel > 60
+                    ? "#F97316" // naranja
+                    : audioLevel > 30
+                    ? "#FACC15" // amarillo
+                    : "#3B82F6", // azul
+              }}
             ></div>
           </div>
         </div>
@@ -190,15 +224,24 @@ export default function SoundLab() {
         </div>
 
         <div className="mt-8 bg-gray-800 p-6 rounded-lg">
-          <h2 className="text-2xl mb-4">Física de las Ondas Sonoras</h2>
+          <h2 className="text-2xl mb-4 font-bold">
+            Física de las Ondas Sonoras
+          </h2>
           <p className="mb-4">
-            Cuando hablas, tus cuerdas vocales vibran, creando ondas de presión en el aire.
-            Estas ondas son capturadas por el micrófono y visualizadas arriba.
+            Cuando hablas, tus cuerdas vocales vibran, creando ondas de presión
+            en el aire. Estas ondas son capturadas por el micrófono y
+            visualizadas arriba.
           </p>
           <ul className="list-disc pl-5 space-y-2">
-            <li><strong>Amplitud</strong>: altura de la onda (volumen)</li>
-            <li><strong>Frecuencia</strong>: número de oscilaciones por segundo (tono)</li>
-            <li>Los humanos escuchamos frecuencias entre 20Hz a 20kHz</li>
+            <li>
+              <strong>Amplitud:</strong> indica qué tan alta es la onda, y está relacionada con el volumen del sonido.
+            </li>
+            <li>
+              <strong>Frecuencia:</strong> representa el número de oscilaciones por segundo, y determina el tono que percibimos.
+            </li>
+            <li>
+              Los humanos pueden percibir sonidos con frecuencias entre 20 Hz y 20 000 Hz (20 kHz).
+            </li>
           </ul>
         </div>
       </div>
