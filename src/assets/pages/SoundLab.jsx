@@ -1,9 +1,12 @@
 import { useRef, useState, useEffect } from "react";
+import ondasVideo from "../videos/longitudesDeOnda.mp4";
+import videoEjemplo from "../videos/videoEjemplo.mp4";
+
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Chart } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
-import atom from "../images/atom.png"
-import soundwave from "../images/sound-wave.png"
+
+import Overlay from "../../components/ExplanatoryVideos"
 
 export default function SoundLab() {
   const [isListening, setIsListening] = useState(false);
@@ -17,6 +20,23 @@ export default function SoundLab() {
   const isListeningRef = useRef(false);
   const mediaStreamRef = useRef(null);
   const navigate = useNavigate();
+
+  // Overlay/video state
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [src, setSrc] = useState(null);
+  const [q, setQ] = useState(null);
+  const [currentVideo, setCurrentVideo] = useState(null);
+  const [watchedVideos, setWatchedVideos] = useState(new Set());
+
+  function visibleOverlay(link, question) {
+    setShowOverlay(false);
+    setTimeout(() => {
+      setSrc(link);
+      setQ(question);
+      setCurrentVideo(link);
+      setShowOverlay(true);
+    }, 50);
+  }
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");
@@ -158,7 +178,20 @@ export default function SoundLab() {
   };
 
   return (
+    <>
+    {showOverlay && (
+        <Overlay
+          videoSrc={src}
+          question={q}
+          onClose={() => {
+            setWatchedVideos((prev) => new Set(prev).add(currentVideo));
+            setShowOverlay(false);
+          }}
+        />
+      )}
     <div className="pt-30 min-h-screen bg-gray-900 text-white p-8">
+
+      
       <h1 className="text-center text-4xl mb-8">Simulador Ondas Sonoras</h1>
 
       <div className="max-w-4xl mx-auto">
@@ -181,18 +214,41 @@ export default function SoundLab() {
             {isListening ? "Detener Micrófono" : "Activar Micrófono"}
           </button>
 
+
           <div className="flex -mt-7 gap-4 items-center">
             <button
-              className={`cursor-pointer w-14 px-2 py-2 bg-white rounded-full text-center hover:opacity-65`}
-            >
-              <img src={atom} className="m-auto" alt="physics icon"/>
-            </button>
+            title="Video 1"
+            onClick={() =>
+              visibleOverlay(
+                ondasVideo,
+                "¿Cómo las ondas de sonido se propagan por el aire?"
+              )
+            }
+            className={`cursor-pointer flex items-center justify-center w-fit h-10 px-4 rounded-[.8rem] ${
+              watchedVideos.has(ondasVideo)
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-[#1B1D23] hover:bg-[#121317]'
+            }`}
+          >
+            Video Explicativo 1
+          </button>
 
-            <button
-              className={`cursor-pointer w-14 px-2 py-2 bg-white rounded-full text-center hover:opacity-65`}
-            >
-              <img src={soundwave} className="w-9 m-auto" alt="sound-wave icon"/>
-            </button>
+          <button
+            title="Video 2"
+            onClick={() =>
+              visibleOverlay(
+                videoEjemplo,
+                "¿Cúal es la física detrás de las ondas de sonido?"
+              )
+            }
+            className={`cursor-pointer flex items-center justify-center w-fit h-10 px-4 rounded-[.8rem] ${
+              watchedVideos.has(videoEjemplo)
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-[#1B1D23] hover:bg-[#121317]'
+            }`}
+          >
+            Video Explicativo 2
+          </button>
           </div>
         </div>
 
@@ -246,5 +302,6 @@ export default function SoundLab() {
         </div>
       </div>
     </div>
+    </>
   );
 }
