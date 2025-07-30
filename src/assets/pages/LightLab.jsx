@@ -7,6 +7,11 @@ import Overlay from "../../components/ExplanatoryVideos";
 
 import ondasVideo from "../videos/longitudesDeOnda.mp4"
 import videoEjemplo from "../videos/videoEjemplo.mp4"
+//------
+import longitudOnda from "../videos/longitudO.mp4"
+import ultravioleta from "../videos/ultravioleta.mp4"
+import diferenciasHz from "../videos/diferenciasHz.mp4"
+
 import { Link } from 'react-router-dom';
 
 export default function LightLab() {
@@ -147,9 +152,9 @@ export default function LightLab() {
         <div className='flex mt-5 flex-col gap-1'>
           <button
             title="First Video"
-            onClick={() => visibleOverlay(ondasVideo, "¿Qué representa la longitud de onda en el contexto de la luz?")}
+            onClick={() => visibleOverlay(longitudOnda, "¿Qué representa la longitud de onda en el contexto de la luz?")}
             className={`cursor-pointer border border-black flex items-center justify-center w-full h-10 rounded-[.8rem] ${
-              watchedVideos.has(ondasVideo)
+              watchedVideos.has(longitudOnda)
                 ? 'bg-green-600 hover:bg-green-700'
                 : 'bg-[#1B1D23] hover:bg-[#121317]'
             }`}
@@ -159,9 +164,9 @@ export default function LightLab() {
 
           <button
             title="Second Video"
-            onClick={() => visibleOverlay(videoEjemplo, "¿Cúal es la física detrás de la percepción del color?")}
+            onClick={() => visibleOverlay(ultravioleta, "¿Cúal es la física detrás de la percepción del color?")}
             className={`cursor-pointer border border-black flex items-center justify-center w-full h-10 rounded-[.8rem] ${
-              watchedVideos.has(videoEjemplo)
+              watchedVideos.has(ultravioleta)
                 ? 'bg-green-600 hover:bg-green-700'
                 : 'bg-[#1B1D23] hover:bg-[#121317]'
             }`}
@@ -169,21 +174,17 @@ export default function LightLab() {
             <IoPlay color="#E2E2E2" size={20} />
           </button>
 
-          <Link title="Third Video" className='cursor-pointer border border-black flex items-center justify-center w-full h-10 bg-[#1B1D23] hover:bg-[#121317] rounded-[.8rem]'>
-            <IoPlay color="#E2E2E2" size={20}/>
-          </Link>
-
-          <Link title="Fourth Video" className='cursor-pointer border border-black flex items-center justify-center w-full h-10 bg-[#1B1D23] hover:bg-[#121317] rounded-[.8rem]'>
-            <IoPlay color="#E2E2E2" size={20}/>
-          </Link>
-
-          <Link title="Fifth Video" className='cursor-pointer border border-black flex items-center justify-center w-full h-10 bg-[#1B1D23] hover:bg-[#121317] rounded-[.8rem]'>
-            <IoPlay color="#E2E2E2" size={20}/>
-          </Link>
-
-          <Link title="Sixth Video" className='cursor-pointer border border-black flex items-center justify-center w-full h-10 bg-[#1B1D23] hover:bg-[#121317] rounded-[.8rem]'>
-            <IoPlay color="#E2E2E2" size={20}/>
-          </Link>
+          <button
+            title="Second Video"
+            onClick={() => visibleOverlay(diferenciasHz, "¿Cúal es la diferencia entre THz y Hz?")}
+            className={`cursor-pointer border border-black flex items-center justify-center w-full h-10 rounded-[.8rem] ${
+              watchedVideos.has(diferenciasHz)
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-[#1B1D23] hover:bg-[#121317]'
+            }`}
+          >
+            <IoPlay color="#E2E2E2" size={20} />
+          </button>
         </div>
 
 
