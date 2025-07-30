@@ -53,7 +53,7 @@ const ExplanatoryVideos = ({ question, videoSrc, onClose }) => {
             loop={false}
             controls
             playsInline
-            className="object-cover"
+            className="object-cover w-full h-70"
             preload="none"
           ></video>
         </div>

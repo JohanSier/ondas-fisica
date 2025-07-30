@@ -220,12 +220,12 @@ export default function SoundLab() {
             title="Video 1"
             onClick={() =>
               visibleOverlay(
-                ondaGina,
+                viajeSonido,
                 "¿Cómo las ondas de sonido se propagan por el aire?"
               )
             }
             className={`cursor-pointer flex items-center justify-center w-fit h-10 px-4 rounded-[.8rem] ${
-              watchedVideos.has(ondaGina)
+              watchedVideos.has(viajeSonido)
                 ? 'bg-green-600 hover:bg-green-700'
                 : 'bg-[#1B1D23] hover:bg-[#121317]'
             }`}
@@ -237,12 +237,12 @@ export default function SoundLab() {
             title="Video 2"
             onClick={() =>
               visibleOverlay(
-                viajeSonido,
+                ondaGina,
                 "¿Qué es una onda?"
               )
             }
             className={`cursor-pointer flex items-center justify-center w-fit h-10 px-4 rounded-[.8rem] ${
-              watchedVideos.has(viajeSonido)
+              watchedVideos.has(ondaGina)
                 ? 'bg-green-600 hover:bg-green-700'
                 : 'bg-[#1B1D23] hover:bg-[#121317]'
             }`}
