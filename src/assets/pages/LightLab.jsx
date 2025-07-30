@@ -189,35 +189,34 @@ export default function LightLab() {
 
 
 
-
-
         
       </div>
       <div className="bg-black bg-opacity-70 text-white p-8 rounded-lg h-165 max-w-2xl w-full">
         <h1 className="text-4xl mb-6">Simulador Frecuencias de Luz</h1>
         
         <div className="">
-          <label htmlFor="frequency" className="block text-xl mb-2">
-            Introduce la Frecuencia de la Luz (THz):
+          <label htmlFor="wavelength" className="block text-xl mb-2">
+            Introduce la Longitud de Onda de la Luz (nm):
           </label>
           <input
-            id="frequency"
+            id="wavelength"
             type="number"
             min="1"
-            max="1000"
+            max="10000"
             step="1"
-            value={frequency}
-            onChange={(e) => setFrequency(Number(e.target.value))}
+            value={wavelength}
+            onChange={(e) => setWavelength(Number(e.target.value))}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                setConfirmedFrequency(Number(e.target.value));
+                const freq = 3e8 / (Number(e.target.value) * 1e-9); // convertir nm a m y calcular frecuencia
+                setConfirmedFrequency(freq / 1e12); // convertir Hz a THz
               }
             }}
             className="w-full p-3 rounded border border-white text-white text-xl"
           />
           {confirmedFrequency !== null && (
             <div className="mt-2 text-lg">
-              Actual: {confirmedFrequency} THz ({wavelength.toFixed(2)} nm)
+              Actual: {wavelength.toFixed(2)} nm ({confirmedFrequency?.toFixed(2)} THz)
             </div>
           )}
         </div>
