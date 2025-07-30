@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import ondasVideo from "../videos/longitudesDeOnda.mp4";
-import videoEjemplo from "../videos/videoEjemplo.mp4";
+import ondaGina from "../videos/onda.mp4";
+import viajeSonido from "../videos/comoViajaSonido.mp4";
 
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Chart } from "chart.js/auto";
@@ -220,12 +220,12 @@ export default function SoundLab() {
             title="Video 1"
             onClick={() =>
               visibleOverlay(
-                ondasVideo,
+                ondaGina,
                 "¿Cómo las ondas de sonido se propagan por el aire?"
               )
             }
             className={`cursor-pointer flex items-center justify-center w-fit h-10 px-4 rounded-[.8rem] ${
-              watchedVideos.has(ondasVideo)
+              watchedVideos.has(ondaGina)
                 ? 'bg-green-600 hover:bg-green-700'
                 : 'bg-[#1B1D23] hover:bg-[#121317]'
             }`}
@@ -237,12 +237,12 @@ export default function SoundLab() {
             title="Video 2"
             onClick={() =>
               visibleOverlay(
-                videoEjemplo,
+                viajeSonido,
                 "¿Qué es una onda?"
               )
             }
             className={`cursor-pointer flex items-center justify-center w-fit h-10 px-4 rounded-[.8rem] ${
-              watchedVideos.has(videoEjemplo)
+              watchedVideos.has(viajeSonido)
                 ? 'bg-green-600 hover:bg-green-700'
                 : 'bg-[#1B1D23] hover:bg-[#121317]'
             }`}
