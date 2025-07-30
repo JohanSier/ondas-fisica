@@ -238,7 +238,7 @@ export default function SoundLab() {
             onClick={() =>
               visibleOverlay(
                 videoEjemplo,
-                "¿Cúal es la física detrás de las ondas de sonido?"
+                "¿Qué es una onda?"
               )
             }
             className={`cursor-pointer flex items-center justify-center w-fit h-10 px-4 rounded-[.8rem] ${
